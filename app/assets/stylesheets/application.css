@@ -1,0 +1,42 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+
+/***** body *****/
+body{
+  width: 100%;
+}
+
+/***** tweet_list  *****/
+.tweet_list{
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 0 auto;
+}
+  .tweet_content {
+    width: 28%;
+    padding: 0.5em 1em;
+    margin: 2em auto;
+    color: #5d627b;
+    background: white;
+    border-top: solid 5px #9acd32;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.22);
+  }
+    .tweet_content p {
+      margin: 0;
+      padding: 0;
+    }

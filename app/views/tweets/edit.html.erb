@@ -1,0 +1,16 @@
+<h3>tweets#edit</h3>
+
+<%= form_with model: @tweet do |form| %>
+
+  <!-- title -->
+  <%= form.label :title, "タイトル" %>
+  <%= form.text_field :title %>
+
+  <!-- body -->
+  <%= form.label :body, "ツイート" %>
+  <%= form.text_area :body %>
+
+  <!-- submit -->
+  <%= form.submit "つぶやく" %>
+
+<% end %>

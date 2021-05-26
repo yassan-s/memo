@@ -1,0 +1,32 @@
+<h2>投稿一覧／home#top</h2>
+<div class="tweet_list">
+
+  <% @tweets.each do |tweet| %>
+    <div class="tweet_content">
+
+      <p>投稿ユーザー：<%= tweet.user.name %></p>
+      <p>id：<%= tweet.id %></p>
+      <p>タイトル：<%= tweet.title %></p>
+      <p>ツイート：<%= tweet.body %></p>
+
+      <% if user_signed_in? %>
+        <!-- 投稿したユーザーがログインユーザーと同じか調べる -->
+        <% if tweet.user == current_user %>
+          <a href="/tweets/<%= tweet.id %>/edit">edit</a>
+          <%= link_to "delete", tweet_path(tweet), method: :delete,
+            data: { confirm: "本当に削除しますか？" } %>
+        <% end %>
+
+        <% if tweet.favorited_by?(current_user) %>
+          <p><span>いいね解除：</span><%=link_to tweet.favorites.count, tweet_favorites_path(tweet.id), method: :delete %></p>
+        <% else %>
+          <p><span>いいね登録：</span><%=link_to tweet.favorites.count, tweet_favorites_path(tweet.id), method: :post %></p>
+        <% end %>
+      <% else %>
+        <p><span>お気に入り数: </span><%= tweet.favorites.count %></p>
+      <% end %>
+
+    </div>
+  <% end %>
+
+</div>
