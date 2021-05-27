@@ -8,6 +8,7 @@
       <p>id：<%= tweet.id %></p>
       <p>タイトル：<%= tweet.title %></p>
       <p>ツイート：<%= tweet.body %></p>
+      <a href="/tweets/<%= tweet.id %>">show</a>
 
       <% if user_signed_in? %>
         <!-- 投稿したユーザーがログインユーザーと同じか調べる -->

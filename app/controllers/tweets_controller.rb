@@ -29,6 +29,11 @@ class TweetsController < ApplicationController
     binding.pry
   end
 
+  ##### 詳細 #####
+  def show
+    @tweet = Tweet.find(params[:id])
+  end
+
 
   ##### 更新 #####
   def update
