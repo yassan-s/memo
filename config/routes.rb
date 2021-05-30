@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'favorites/create'
-  get 'favorites/destroy'
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
@@ -11,7 +9,11 @@ Rails.application.routes.draw do
   root 'home#top'
 
   resources :tweets do
+    resource :comments, only: [:create, :destroy]
     resource :favorites, only: [:create, :destroy]
   end
+
+  get 'favorites/create'
+  get 'favorites/destroy'
 
 end

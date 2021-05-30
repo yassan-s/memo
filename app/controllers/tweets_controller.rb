@@ -3,6 +3,7 @@ class TweetsController < ApplicationController
   # ログインユーザーのみ実行可能
   before_action :authenticate_user!
 
+
   ##### 投稿フォーム #####
   def new
     # 空インスタンス生成
@@ -26,12 +27,15 @@ class TweetsController < ApplicationController
   ##### 編集 #####
   def edit
     @tweet = Tweet.find(params[:id])
-    binding.pry
   end
+
 
   ##### 詳細 #####
   def show
     @tweet = Tweet.find(params[:id])
+    @new_comment = Comment.new
+    binding.pry
+
   end
 
 
@@ -53,6 +57,7 @@ class TweetsController < ApplicationController
 
   # カプセル化
   private
+
 
   ##### paramsメソッド #####
   def tweet_params

@@ -1,24 +1,30 @@
-<h1>memoアプリ</h1>
+<header>
+  <h1 class="app_title">memo</h1>
 
-<%= link_to "topへ", root_path %>
-<a href="/tweets/new">ツイートを投稿する</a>
+  <nav>
+    <a class="nes-btn" href="/">topへ</a>
+    <!--<%= link_to "topへ", root_path %>-->
+    <a href="/tweets/new">ツイートを投稿する</a>
 
-<!-- ユーザーがログインしているか調べる -->
-<% if user_signed_in? %>
+    <!-- ユーザーがログインしているか調べる -->
+    <% if user_signed_in? %>
 
-  <!-- ログインしていた時 -->
-  <span> ログインユーザー：<%= current_user.name %></span>
-  <span> メールアドレス： <%= current_user.email %> </span>
-  <!-- ログアウトをする -->
-  <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+      <!-- ログインしていた時 -->
+      <span> ログインユーザー：<%= current_user.name %></span>
+      <span> メールアドレス： <%= current_user.email %> </span>
+      <!-- ログアウトをする -->
+      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
 
-<% else %> <!-- ログインしていなかった時 -->
+    <% else %> <!-- ログインしていなかった時 -->
 
-  <h2> 現在ログインしていません </h2>
+      <h2> 現在ログインしていません </h2>
 
-  <!-- ログイン画面に移行する -->
-  <%= link_to "ログイン", new_user_session_path, class: 'post' %>
-  <!-- 新規登録画面に移行する -->
-  <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+      <!-- ログイン画面に移行する -->
+      <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+      <!-- 新規登録画面に移行する -->
+      <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
 
-<% end %>
+    <% end %>
+  <nav>
+
+</header>

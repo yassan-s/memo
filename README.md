@@ -1,24 +1,16 @@
-# README
+# README Memoアプリ
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 機能
+メモを投稿でき、他のユーザーが「いいね」をすることができる
 
-Things you may want to cover:
+## 技術
 
-* Ruby version
+* ログイン(devise)
 
-* System dependencies
+* メモのCRUD機能
 
-* Configuration
+* メモに対して「いいね」
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+* パーシャル化
 
 * ...

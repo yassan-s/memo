@@ -1,13 +1,17 @@
 <h2>詳細／tweet#show</h2>
 
+
+<%# 投稿内容 %>
 <h3>タイトル</h3>
-<p><%= @tweet.title%></p>
+<p><%= @tweet.title %></p>
 
 <h3>ツイート</h3>
-<p><%= @tweet.body%></p>
+<p><%= @tweet.body %></p>
 
+
+<%# ログインユーザーのみできる機能 %>
 <% if user_signed_in? %>
-  <!-- 投稿したユーザーがログインユーザーと同じか調べる -->
+  <%# 投稿したユーザーがログインユーザーと同じか調べる %>
   <% if @tweet.user == current_user %>
     <a href="/tweets/<%= @tweet.id %>/edit">edit</a>
     <%= link_to "delete", tweet_path(@tweet), method: :delete,
@@ -22,4 +26,24 @@
 
 <% else %>
   <p><span>お気に入り数: </span><%= @tweet.favorites.count %></p>
+<% end %>
+
+
+<%# コメント投稿フォーム %>
+<%= form_with(model: [@tweet, @new_comment], local: true) do |form|%>
+
+  <%= form.text_area :content %>
+
+  <%= form.submit "コメントする"%>
+
+<% end %>
+
+
+<%# コメント一覧 %>
+<% @tweet.comments.each do |comment| %>
+  <div>
+  <%= comment.user.id %>
+  <%= comment.user.name %>
+  <%= comment.content %>
+  </div>
 <% end %>
