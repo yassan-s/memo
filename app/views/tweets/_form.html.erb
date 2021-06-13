@@ -1,0 +1,24 @@
+<%= form_with model: tweet do |form| %>
+
+  <!-- title -->
+  <%= form.label :title, "Title", class: "textarea_field" %>
+  <%= form.text_area :title, class: "nes-textarea" %>
+
+  <!-- body -->
+  <%= form.label :body, "Tweet", class: "textarea_field" %>
+  <%= form.text_area :body, class: "nes-textarea" %>
+
+
+  <!-- submit -->
+  <%= form.submit "OK!", class: "nes-btn is-primary" %>
+
+<% end %>
+
+
+  <%# title %>
+  <%#= form.label :title, "タイトル" %>
+  <%#= form.text_area :title %>
+
+  <%#  body %>
+  <%#= form.label :body, "ツイート" %>
+  <%#= form.text_area :body %>

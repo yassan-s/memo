@@ -1,30 +1,64 @@
 <header>
-  <h1 class="app_title">memo</h1>
+  <div class="app-title">
+    <h1><a href="/">MemoApp</a></h1>
+  </div>
 
   <nav>
-    <a class="nes-btn" href="/">topへ</a>
-    <!--<%= link_to "topへ", root_path %>-->
-    <a href="/tweets/new">ツイートを投稿する</a>
+    <div class="nav-list">
 
-    <!-- ユーザーがログインしているか調べる -->
-    <% if user_signed_in? %>
+      <%# ログインユーザー %>
+      <div>
+        <!-- ユーザーがログインしているか調べる -->
+        <% if user_signed_in? %>
 
-      <!-- ログインしていた時 -->
-      <span> ログインユーザー：<%= current_user.name %></span>
-      <span> メールアドレス： <%= current_user.email %> </span>
-      <!-- ログアウトをする -->
-      <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <!-- ログインしていた時 -->
+          <p> User：<%= current_user.name %> / Email： <%= current_user.email %> </p>
+          <!-- ログアウトをする -->
+          <%#= link_to "logout", destroy_user_session_path, class:"nes-text is-error", method: :delete %>
+          <P style="text-align: left;">
+            <a href="/users/sign_out" data-method="delete" class="nes-badge">
+              <span class="is-error">LogOut!</span>
+            </a>
+          </P>
 
-    <% else %> <!-- ログインしていなかった時 -->
 
-      <h2> 現在ログインしていません </h2>
+        <% else %> <!-- ログインしていなかった時 -->
 
-      <!-- ログイン画面に移行する -->
-      <%= link_to "ログイン", new_user_session_path, class: 'post' %>
-      <!-- 新規登録画面に移行する -->
-      <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+          <!-- ログイン画面に移行する -->
+          <%= link_to "Sign in", new_user_session_path, class: 'post' %>
+          <!-- 新規登録画面に移行する -->
+          <%= link_to "Sign up", new_user_registration_path, class: 'post' %>
 
-    <% end %>
-  <nav>
+        <% end %>
+      </div>
+
+      <%# リンク一覧 %>
+      <div>
+        <a href="/tweets/new" class="nes-badge is-splited">
+          <span class="is-dark">make!</span>
+          <span class="is-primary">memo</span>
+        </a>
+
+
+        <a href="/tweets" class="nes-badge">
+          <span class="is-primary">Memos</span>
+        </a>
+
+
+        <a href="/users" class="nes-badge">
+          <span class="is-success">Users</span>
+        </a>
+      </div>
+
+    </div> <%# .nav-list %>
+  </nav>
 
 </header>
+
+
+
+<%##### メモ  #####%>
+
+<%#= button_to 'memo_create', '/tweets/new', { method: :get, class: "nes-btn is-primary" } %>
+<%#= button_to 'Users', '/users', { method: :get, class: "nes-btn" } %>
+<%#= button_to 'Memos', '/tweets', { method: :get, class: "nes-btn is-success" } %>

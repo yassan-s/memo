@@ -18,9 +18,27 @@ class TweetsController < ApplicationController
     # ログインユーザーの「id」を「user_id」に代入
     tweet.user_id = current_user.id
     # DBに保存
-    tweet.save
+    if tweet.save
+      flash[:success] = "つぶやきました！"
+    else
+      flash[:error] = "失敗しました。"
+    end
     # top画面にリダイレクト
     redirect_to root_path
+  end
+
+
+  ##### 一覧 #####
+  def index
+    @tweets = Tweet.all.sort.reverse
+  end
+
+
+  ##### 詳細 #####
+  def show
+    @tweet = Tweet.find(params[:id])
+    @new_comment = Comment.new
+    @comment_list = @tweet.comments
   end
 
 
@@ -30,20 +48,15 @@ class TweetsController < ApplicationController
   end
 
 
-  ##### 詳細 #####
-  def show
-    @tweet = Tweet.find(params[:id])
-    @new_comment = Comment.new
-    binding.pry
-
-  end
-
-
   ##### 更新 #####
   def update
     @tweet = Tweet.find(params[:id])
-    @tweet.update(tweet_params)
-    redirect_to root_path
+    if @tweet.update(tweet_params)
+      flash[:success] = "更新が完了しました！"
+    else
+      flash[:error] = "更新できませんでした"
+    end
+    redirect_to tweet_path(@tweet.id)
   end
 
 
@@ -64,6 +77,7 @@ class TweetsController < ApplicationController
     # 構文：params.require(:モデル名).permit(:キー名1, :キー名2)
     params.require(:tweet).permit(:title, :body)
   end
+
 
 end
 

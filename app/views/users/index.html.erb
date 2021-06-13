@@ -1,0 +1,11 @@
+<h2>users#index</h2>
+
+<div class="user-list-area">
+  <% @users.each do |user| %>
+    <div class="nes-container is-rounded user-list-content">
+      <p>id：<%= user.id %></p>
+      <p>name：<a href="/users/<%= user.id %>"><%= user.name %></a></p>
+      <p>ツイート数：<%= user.tweets.count %></p>
+    </div>
+  <% end %>
+</div>

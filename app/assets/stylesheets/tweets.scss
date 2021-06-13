@@ -1,3 +1,24 @@
 // Place all the styles related to the tweets controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+/***** comment_area *****/
+.comment-area{
+  margin-top: 2.5%;
+  margin-bottom: 2.5%;
+}
+
+.comment-count{
+  margin-bottom: 2%;
+}
+
+.comment-list{
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 2%;
+}
+
+.comment-body{
+  margin-left: 2%;
+}

@@ -6,19 +6,30 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%# 使用予定フォント %>
-    <%# <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet"> %>
+    <%# リセットCSS %>
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
 
+    <%# 使用フォント %>
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
+
+    <%# NES-style CSS Framework %>
     <link href="https://unpkg.com/nes.css@latest/css/nes.min.css" rel="stylesheet" />
+
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
   <body>
+    <%# memo %>
+    <%# 部分テンプレートの構文
+    render partial: 'tweets/tweet', locals: { tweet: @tweet } %>
 
     <%# 共通header %>
     <%= render partial: 'layouts/header' %>
+
+    <%# メッセージ部分 %>
+    <%= render partial: 'layouts/flash' %>
 
     <%= yield %>
 

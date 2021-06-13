@@ -1,0 +1,27 @@
+<h2>users#show</h2>
+
+
+<%# user-show %>
+<div class="nes-container with-title is-centered user-show-area">
+  <p>User Information</p>
+  <p>Id:<%= @user.id %></p>
+  <p>Name:<%= @user.name %></p>
+  <p>Tweet Count:<%= @tweets.count %></p>
+  <p>Follow：<%= @user.active_relationships.count %></p>
+  <p>Follower：<%= @user.passive_relationships.count %></p>
+  <%# フォローするor解除 %>
+  <% if current_user != @user %>
+    <% if @user.following_by?(current_user) %>
+      <p><%=link_to "Already Followed", user_relationships_path(@user.id), method: :delete %></p>
+    <% else %>
+      <p><%=link_to "Do Follow!", user_relationships_path(@user.id), method: :post %></p>
+    <% end %>
+  <% end %>
+</div>
+
+
+<%# ユーザーのツイート %>
+<div class="tweet_list">
+  <%= render partial: 'tweets/tweet_list',
+    locals: { tweets: @tweets } %>
+</div>

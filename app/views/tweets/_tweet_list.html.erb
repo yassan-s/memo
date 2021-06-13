@@ -1,0 +1,27 @@
+  <% tweets.each do |tweet| %>
+    <div class="nes-container is-rounded is-dark">
+
+      <%##### 投稿内容 #####%>
+      <p>MemoNo.<%= tweet.id %></p>
+      <p>User：<%= tweet.user.name %></p>
+      <p>タイトル：<%= tweet.title %></p>
+      <p class="tweet_body" ><%= tweet.body %></p>
+      <a href="/tweets/<%= tweet.id %>">show</a>
+
+
+      <%###### ログインユーザーのみできる機能 #####%>
+      <% if user_signed_in? %>
+        <%# 投稿したユーザーがログインユーザーと同じか調べる %>
+        <% if tweet.user == current_user %>
+          <a href="/tweets/<%= tweet.id %>/edit">edit</a>
+          <%= link_to "delete", tweet_path(tweet), method: :delete,
+            data: { confirm: "本当に削除しますか？" } %>
+        <% end %>
+        <%# いいね機能 %>
+        <%= render partial: 'favorites/favorites', locals: { tweet: tweet } %>
+      <% else %>
+        <p><span>お気に入り数: </span><%= tweet.favorites.count %></p>
+      <% end %>
+
+    </div>
+  <% end %>

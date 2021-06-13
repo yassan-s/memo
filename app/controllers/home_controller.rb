@@ -1,21 +1,12 @@
 class HomeController < ApplicationController
 
-  # ログインユーザーのみ実行可能
-  before_action :authenticate_user!
+    # ログインユーザーのみ実行可能
+    before_action :authenticate_user!
 
 
-  def top
-    @tweets = Tweet.all
-  end
+    def top
+      @tweets = current_user.tweets.sort.reverse
+    end
+
 
 end
-
-
-##### メモ #####
-
-# メソッドの内容が空の場合
-# .html.erbビューをレンダリングする
-
-# paramsメソッド
-# ルーティングから「action,controller」をハッシュに取得
-# リンクからパラメーターを取得

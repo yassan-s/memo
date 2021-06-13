@@ -1,49 +1,69 @@
-<h2>詳細／tweet#show</h2>
+<h2>Tweet#show</h2>
+
+<div class="nes-container is-rounded is-dark">
+<%##### 投稿内容 #####%>
+  <h3>Title</h3>
+  <p><%= @tweet.title %></p>
+
+  <h3>Tweet</h3>
+  <p><%= @tweet.body %></p>
 
 
-<%# 投稿内容 %>
-<h3>タイトル</h3>
-<p><%= @tweet.title %></p>
+  <%###### ログインユーザーのみできる機能 #####%>
+  <% if user_signed_in? %>
 
-<h3>ツイート</h3>
-<p><%= @tweet.body %></p>
+    <%# 投稿したユーザーがログインユーザーと同じか調べる %>
+    <% if @tweet.user == current_user %>
+      <a href="/tweets/<%= @tweet.id %>/edit">edit</a>
+      <%= link_to "delete", tweet_path(@tweet), method: :delete,
+        data: { confirm: "本当に削除しますか？" } %>
+    <% end %>
 
+    <%# いいね機能 %>
+    <%= render partial: 'favorites/favorites', locals: { tweet: @tweet } %>
 
-<%# ログインユーザーのみできる機能 %>
-<% if user_signed_in? %>
-  <%# 投稿したユーザーがログインユーザーと同じか調べる %>
-  <% if @tweet.user == current_user %>
-    <a href="/tweets/<%= @tweet.id %>/edit">edit</a>
-    <%= link_to "delete", tweet_path(@tweet), method: :delete,
-      data: { confirm: "本当に削除しますか？" } %>
-  <% end %>
+    <%# フォローするor解除 %>
+    <% if current_user != @tweet.user %>
+      <% if @tweet.user.following_by?(current_user) %>
+        <p><%=link_to "フォロー済み", user_relationships_path(@tweet.user.id), method: :delete %></p>
+      <% else %>
+        <p><%=link_to "フォローする", user_relationships_path(@tweet.user.id), method: :post %></p>
+      <% end %>
+    <% end %>
 
-  <% if @tweet.favorited_by?(current_user) %>
-    <p><span>いいね解除：</span><%=link_to @tweet.favorites.count, tweet_favorites_path(@tweet.id), method: :delete %></p>
   <% else %>
-    <p><span>いいね登録：</span><%=link_to @tweet.favorites.count, tweet_favorites_path(@tweet.id), method: :post %></p>
+    <p><span>お気に入り数: </span><%= @tweet.favorites.count %></p>
   <% end %>
-
-<% else %>
-  <p><span>お気に入り数: </span><%= @tweet.favorites.count %></p>
-<% end %>
+</div>
 
 
-<%# コメント投稿フォーム %>
-<%= form_with(model: [@tweet, @new_comment], local: true) do |form|%>
+<%##### コメント投稿フォーム #####%>
+<div class="comment-area">
+  <h2>COMMENT</h2>
 
-  <%= form.text_area :content %>
+  <%= form_with(model: [@tweet, @new_comment], local: true) do |form|%>
+    <%= form.text_area :content, class: "nes-textarea", placeholder: "input comment" %>
+    <%= form.submit "COMMENT!", class: "nes-btn is-primary" %>
+  <% end %>
+</div>
 
-  <%= form.submit "コメントする"%>
 
-<% end %>
+<%##### コメント一覧 #####%>
+<section class="nes-container is-dark ">
+<div class="comment-count">コメント数: </span><%= @tweet.comments.count %></div>
 
-
-<%# コメント一覧 %>
-<% @tweet.comments.each do |comment| %>
-  <div>
-  <%= comment.user.id %>
-  <%= comment.user.name %>
-  <%= comment.content %>
-  </div>
-<% end %>
+  <% @comment_list.each do |comment| %>
+    <div class="comment-list">
+      <div>
+        <i class="nes-bcrikko"></i>
+        <p></p><%= comment.user.name %></p>
+      </div>
+      <div class="nes-balloon from-left is-dark comment-body">
+        <p><%= comment.content %></p>
+        <% if comment.user_id == current_user.id %>
+          <p><%= link_to "destroy", tweet_comments_path(comment.tweet_id, comment.id), method: :delete, class:"nes-text is-error" %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</section>
