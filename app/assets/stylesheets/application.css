@@ -45,6 +45,7 @@ header{
 }
   .app-title a{
     text-decoration: none;
+    color: black;
   }
 
 /* nav */
